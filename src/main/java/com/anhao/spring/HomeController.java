@@ -52,9 +52,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		for (int i = 10000, c = 10050; i < c; i++) {
-//			wallhavenJobCrawler.crawlByWallPaperId(i + "");
-			
+		for (int i = 1, c = 1000; i < c; i++) {
 			taskExecutor.execute(new crawlTask(i + "",jobPhotosDAO,storageService));
 		}
 		
