@@ -4,6 +4,7 @@
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:cache="http://www.springframework.org/schema/cache"
 	xmlns:oscache="http://www.springmodules.org/schema/oscache"
+	 xmlns:task="http://www.springframework.org/schema/task"  
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
         http://www.springframework.org/schema/beans/spring-beans.xsd 
         http://www.springframework.org/schema/context 
@@ -15,7 +16,8 @@
         http://www.springframework.org/schema/cache 
         http://www.springframework.org/schema/cache/spring-cache.xsd
         http://www.springmodules.org/schema/oscache 
-        http://www.springmodules.org/schema/cache/springmodules-oscache.xsd">
+        http://www.springmodules.org/schema/cache/springmodules-oscache.xsd
+         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
 	<context:annotation-config />
 
@@ -26,12 +28,15 @@
 
 	<bean id="taskExecutor"
 		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
-		<property name="corePoolSize" value="5" />
-		<property name="maxPoolSize" value="50" />
+		<property name="corePoolSize" value="50" />
+		<property name="maxPoolSize" value="150" />
 		<property name="queueCapacity" value="1000" />
 		<property name="keepAliveSeconds" value="60" />
 	</bean>
 
-	<!-- Root Context: defines shared resources visible to all other web components -->
+    <!-- Spring定时器注解开关-->  
+    <task:annotation-driven />  
+
+
 	<import resource="spring-myBatis.xml" />
 </beans>

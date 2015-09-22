@@ -136,7 +136,7 @@ public class WallhavenJobCrawler {
 			}
 
 		} catch (Exception e) {
-			System.out.println("访问不存在");
+			System.out.println("cant access ");
 			return false;
 		}
 		return false;

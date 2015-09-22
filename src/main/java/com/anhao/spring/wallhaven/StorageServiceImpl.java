@@ -29,7 +29,7 @@ public class StorageServiceImpl implements StorageService {
             String fileId = fastdfsClient.upload(file);
             
             // return fileId;//
-            logger.info("fastdfs upload file path : {}", fileId);
+            //logger.info("fastdfs upload file path : {}", fileId);
             return fileId;
         } catch (Exception ex) {
             ex.printStackTrace();

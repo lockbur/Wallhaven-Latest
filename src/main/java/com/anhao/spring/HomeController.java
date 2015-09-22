@@ -52,9 +52,6 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		for (int i = 1, c = 1000; i < c; i++) {
-			taskExecutor.execute(new crawlTask(i + "",jobPhotosDAO,storageService));
-		}
 		
 		return "formPage";
 	}
