@@ -29,7 +29,7 @@ VALUES
 		'1',
 		'http://:8888/M00/00/00/eznwC1X-Bg2AP4_cABRsZsJ6vmM675.png',
 		'http://:8888/M00/00/00/eznwC1X-Bg2AP4_cABRsZsJ6vmM675.png',
-		'2015-05-17 20:32:54 µÄÆÁÄ»½ØÍ¼.png',
+		'2015-05-17 20:32:54 ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Í¼.png',
 		'ff8081814f7e13d8014f7e18a95a0000',
 		'1',
 		NULL,
@@ -41,8 +41,8 @@ VALUES
 public interface JobPhotosDAO {
 	
 	public static final String SQL = "INSERT INTO biz.xx_photos "
-			+ "(id,create_date,modify_date,large,MEDIUM,orders,thumbnail,source,title,album_id,member_id,wallhaven,storage_host)"
-			+ " VALUES (#{id},#{create_date},#{modify_date},#{large},#{medium},#{orders},#{thumbnail},#{source},#{title},#{album_id},#{member_id},#{wallhaven},#{storage_host})";
+			+ "(id,create_date,modify_date,large,MEDIUM,orders,thumbnail,source,title,album_id,member_id,wallhaven,storage_host,status)"
+			+ " VALUES (#{id},#{create_date},#{modify_date},#{large},#{medium},#{orders},#{thumbnail},#{source},#{title},#{album_id},#{member_id},#{wallhaven},#{storage_host},'UNASSIGNED')";
 	
 	@Insert(SQL)
 	public int add(Photos photos);

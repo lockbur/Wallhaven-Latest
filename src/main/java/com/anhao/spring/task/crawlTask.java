@@ -97,7 +97,7 @@ public class crawlTask implements Runnable {
 					photos.setTitle(wallpaperId);
 					photos.setWallhaven(wallpaperId);
 					photos.setStorage_host("http://123.57.240.11");
-
+					
 					jobPhotosDAO.add(photos);
 
 				}else{

@@ -33,9 +33,12 @@ public class WallHavenSchedule {
 
 	private int page = 1;
 
+	/**
+	 * 截至时间20150922
+	 */
 	private int totalPages = 6778;
 
-	// 每5秒执行一次
+	// 每20秒执行一次
 	@Scheduled(cron="*/20 * * * * ?")
 	public void myTest() {
 		System.out.println("=============================================");
