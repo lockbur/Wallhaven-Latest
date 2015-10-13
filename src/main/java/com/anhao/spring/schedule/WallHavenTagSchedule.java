@@ -1,22 +1,19 @@
-package com.anhao.spring.wallhaven;
+package com.anhao.spring.schedule;
 
 import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
-import com.anhao.spring.dao.JobPhotosDAO;
-import com.anhao.spring.task.crawlTask;
+import com.anhao.spring.dao.TagDao;
+import com.anhao.spring.task.CrawlTagsTask;
 
-/**
- * 抓取任务调度
- * 
- * @author Administrator
- *
- */
+import com.anhao.spring.wallhaven.WallHavenSchedule;
+
 @Component
-public class WallHavenSchedule {
+public class WallHavenTagSchedule {
 	Logger logger = LoggerFactory.getLogger(WallHavenSchedule.class);
 	/**
 	 * cron表达式：* * * * * *（共6位，使用空格隔开，具体如下） cron表达式：*(秒0-59) *(分钟0-59) *(小时0-23)
@@ -26,20 +23,17 @@ public class WallHavenSchedule {
 	private ThreadPoolTaskExecutor taskExecutor;
 
 	@Resource
-	private JobPhotosDAO jobPhotosDAO;
-
-	@Resource
-	private StorageService storageService;
+	private TagDao tagDAO;
 
 	private int page = 1;
 
 	/**
-	 * 截至时间20150922
+	 * 截至时间20151013
 	 */
-	private int totalPages = 6778;
+	private int totalPages = 600;
 
 	// 每20秒执行一次
-	//@Scheduled(cron="*/20 * * * * ?")
+	//@Scheduled(cron="*/1 * * * * ?")
 	public void myTest() {
 		System.out.println("=============================================");
 		System.out.println("ActiveCount :"+taskExecutor.getActiveCount());
@@ -52,7 +46,7 @@ public class WallHavenSchedule {
 			
 			if(page<=totalPages){
 				for (int i = page; i < page+5; i++) {
-					taskExecutor.execute(new crawlTask(i,jobPhotosDAO,storageService));
+					taskExecutor.execute(new CrawlTagsTask(i,tagDAO));
 				}
 				page=page+5;
 			}else {
