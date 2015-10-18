@@ -16,7 +16,7 @@ import org.apache.ibatis.annotations.Insert;
 public interface PhotosTagDao {
 
     public static final String SQL = "INSERT INTO biz.xx_photos_tag "
-            + "(photos_id,tag_id)"
+            + "(photo_id,tag_id)"
             + " VALUES (#{photoId},#{tagId})";
 
     @Insert(SQL)
