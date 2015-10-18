@@ -20,6 +20,7 @@ import com.anhao.spring.dao.TagDao;
 import com.anhao.spring.domain.Photos;
 import com.anhao.spring.domain.PhotosTag;
 import com.anhao.spring.wallhaven.StorageService;
+import org.apache.commons.lang.StringUtils;
 
 public class crawlTask implements Runnable {
 
@@ -66,7 +67,8 @@ public class crawlTask implements Runnable {
                 /**
                  * 判断是否已经抓取
                  */
-                if (jobPhotosDAO.findByWallpaperId(wallpaperId) == null) {
+                String tempUUID = jobPhotosDAO.findByWallpaperId(wallpaperId);
+                if (StringUtils.isNotEmpty(tempUUID)) {
                     logger.info("wallpapers id {} thumbnail  exist.", wallpaperId);
                     //如果本地数据中已经存在该wallpaperID的数据 就不再处理
                     continue;
