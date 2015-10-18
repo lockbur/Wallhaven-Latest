@@ -119,7 +119,7 @@ public class crawlTask implements Runnable {
                     //2015-10-18添加 标签操作 开始
                     String wallpaperUrl = "http://alpha.wallhaven.cc/wallpaper/" + wallpaperId;
                     Connection connWallpaperDetail = Jsoup.connect(wallpaperUrl);
-                    conn.userAgent(
+                    connWallpaperDetail.userAgent(
                             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36");
                     Document docDetails = connWallpaperDetail.get();
                     Elements Tags = docDetails.select("#tags li");
