@@ -41,7 +41,7 @@ public class WallHavenSchedule {
     @Resource
     private StorageService storageService;
 
-    private int page = 6778;
+    private int page = 1;
 
     /**
      * 截至时间20150922
