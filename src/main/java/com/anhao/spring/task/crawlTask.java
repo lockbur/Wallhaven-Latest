@@ -15,7 +15,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anhao.spring.dao.JobPhotosDAO;
+import com.anhao.spring.dao.PhotosTagDao;
+import com.anhao.spring.dao.TagDao;
 import com.anhao.spring.domain.Photos;
+import com.anhao.spring.domain.PhotosTag;
 import com.anhao.spring.wallhaven.StorageService;
 
 public class crawlTask implements Runnable {
@@ -26,6 +29,8 @@ public class crawlTask implements Runnable {
     private int page;
 
     private JobPhotosDAO jobPhotosDAO;
+    private PhotosTagDao photosTagDao;
+    private TagDao tagDao;
 
     private StorageService storageService;
 
@@ -35,10 +40,12 @@ public class crawlTask implements Runnable {
 //		this.jobPhotosDAO = jobPhotosDAO;
 //		this.storageService = storageService;
 //	}
-    public crawlTask(int page, JobPhotosDAO jobPhotosDAO,
+    public crawlTask(int page, PhotosTagDao photosTagDao, JobPhotosDAO jobPhotosDAO, TagDao tagDao,
             StorageService storageService) {
         this.page = page;
+        this.photosTagDao = photosTagDao;
         this.jobPhotosDAO = jobPhotosDAO;
+        this.tagDao = tagDao;
         this.storageService = storageService;
     }
 
@@ -61,6 +68,7 @@ public class crawlTask implements Runnable {
                  */
                 if (jobPhotosDAO.findByWallpaperId(wallpaperId) == null) {
                     logger.info("wallpapers id {} thumbnail  exist.", wallpaperId);
+                    //如果本地数据中已经存在该wallpaperID的数据 就不再处理
                     continue;
                 }
 
@@ -106,6 +114,29 @@ public class crawlTask implements Runnable {
 
                     jobPhotosDAO.add(photos);
 
+                    //2015-10-18添加 标签操作 开始
+                    String wallpaperUrl = "http://alpha.wallhaven.cc/wallpaper/" + wallpaperId;
+                    Connection connWallpaperDetail = Jsoup.connect(wallpaperUrl);
+                    conn.userAgent(
+                            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36");
+                    Document docDetails = connWallpaperDetail.get();
+                    Elements Tags = docDetails.select("#tags li");
+                    for (Element tag : Tags) {
+                        //系统存储的id是uuid 而不是wallhaven的ID
+                        String photosId = jobPhotosDAO.findByWallpaperId(wallpaperId);
+                        //获得tag的UUID
+                        Element tagName = tag.select(".tagname").first();
+
+                        String TagId = tagDao.findByTagName(tagName.text());
+
+                        System.out.println("wallpaperId:" + wallpaperId + "====tag name ：" + tagName.text());
+                        PhotosTag photosTag = new PhotosTag();
+
+                        photosTag.setPhotoId(photosId);
+                        photosTag.setTagId(TagId);
+                        photosTagDao.add(photosTag);
+                    }
+                    //2015-10-18添加 标签操作 结束
                 } else {
                     logger.info("wallpapers id {} thumbnail or fullImage not exist.", wallpaperId);
                 }
