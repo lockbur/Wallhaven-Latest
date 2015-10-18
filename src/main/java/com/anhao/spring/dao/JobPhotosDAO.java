@@ -3,6 +3,7 @@ package com.anhao.spring.dao;
 import org.apache.ibatis.annotations.Insert;
 
 import com.anhao.spring.domain.Photos;
+import org.apache.ibatis.annotations.Select;
 /**
  * INSERT INTO biz.xx_photos (
 	id,
@@ -46,4 +47,8 @@ public interface JobPhotosDAO {
 	
 	@Insert(SQL)
 	public int add(Photos photos);
+        
+        @Select("SELECT id FROM biz.xx_photos WHERE wallhaven = #{wallhaven}")
+	public String findByWallpaperId(String wallhaven);
+        
 }

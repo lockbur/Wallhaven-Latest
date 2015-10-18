@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import com.anhao.spring.dao.TagDao;
 import com.anhao.spring.task.CrawlTagsTask;
 
-import com.anhao.spring.wallhaven.WallHavenSchedule;
 
 @Component
 public class WallHavenTagSchedule {

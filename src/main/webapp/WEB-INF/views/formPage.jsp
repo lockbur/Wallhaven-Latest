@@ -7,7 +7,7 @@
 <html>
   <head>
     <title>Sample Form</title>
-   	<script src="resources/js/jquery.min.js"></script>
+    <script src="resources/js/jquery.min.js"></script>
     <style>
     	body { background-color: #eee; font: helvetica; }
     	#container { width: 500px; background-color: #fff; margin: 30px auto; padding: 30px; border-radius: 5px; }

@@ -20,7 +20,7 @@ public class UserBean implements Serializable{
 	@NotEmpty @Email
 	private String email;
 	
-	@Digits(fraction = 0, integer = 3) //限制12位int数字,小数部分为0位.
+	@Digits(fraction = 0, integer = 3)
 	private Integer age;
 	
 
