@@ -80,6 +80,9 @@ public class crawlTask implements Runnable {
                 String full = "http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-"
                         + wallpaperId + ".jpg";
 
+                /**
+                 * 在上传到fastdfs时需要先写入到本地文件系统，等上传到fastdfs后删除该文件，默认存放到/tmp/
+                 */
                 boolean smallStatus = getImages(thumbnail, "/tmp/small"
                         + wallpaperId + ".jpg");
                 boolean fullStatus = getImages(full, "/tmp/full"
