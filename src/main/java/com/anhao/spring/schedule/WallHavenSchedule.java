@@ -50,7 +50,7 @@ public class WallHavenSchedule {
     private int totalPages = 6972;
 
     // 每20秒执行一次
-    @Scheduled(cron = "*/20 * * * * ?")
+    //@Scheduled(cron = "*/20 * * * * ?")
     public void myTest() {
         System.out.println("=============================================");
         System.out.println("ActiveCount :" + taskExecutor.getActiveCount());

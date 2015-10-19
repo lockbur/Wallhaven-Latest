@@ -51,4 +51,8 @@ public interface JobPhotosDAO {
         @Select("SELECT id FROM biz.xx_photos WHERE wallhaven = #{wallhaven}")
 	public String findByWallpaperId(String wallhaven);
         
+        
+        //@Select("SELECT id FROM biz.xx_photos WHERE wallhaven = #{wallhaven}")
+	//public String findByWallpaperId(String wallhaven);
+        
 }
