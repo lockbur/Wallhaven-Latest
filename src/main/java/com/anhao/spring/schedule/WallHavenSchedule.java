@@ -1,17 +1,12 @@
 package com.anhao.spring.schedule;
 
-import com.anhao.spring.dao.JobPhotosDAO;
-import com.anhao.spring.dao.PhotosTagDao;
-import com.anhao.spring.dao.TagDao;
+import com.anhao.spring.service.PhotosService;
 import com.anhao.spring.task.crawlTask;
-import com.anhao.spring.wallhaven.StorageService;
 import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
-
 /**
  * 抓取任务调度
  *
@@ -30,22 +25,13 @@ public class WallHavenSchedule {
     private ThreadPoolTaskExecutor taskExecutor;
 
     @Resource
-    private JobPhotosDAO jobPhotosDAO;
-
-    @Resource
-    private TagDao tagDAO;
-
-    @Resource
-    private PhotosTagDao photostagDAO;
-
-    @Resource
-    private StorageService storageService;
+    private PhotosService photosService;
 
     private int page = 1;
 
     /**
      * 截至时间20150922
-     * 
+     *
      */
     private int totalPages = 6972;
 
@@ -63,7 +49,7 @@ public class WallHavenSchedule {
 
             if (page <= totalPages) {
                 for (int i = page; i < page + 5; i++) {
-                    taskExecutor.execute(new crawlTask(i, photostagDAO, jobPhotosDAO, tagDAO, storageService));
+                    taskExecutor.execute(new crawlTask(i, photosService));
                 }
                 page = page + 5;
             } else {
