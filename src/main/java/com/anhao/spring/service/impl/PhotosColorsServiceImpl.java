@@ -11,7 +11,9 @@ import com.anhao.spring.domain.PhotosColors;
 import com.anhao.spring.service.PhotosColorsService;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import javax.annotation.Resource;
 import me.croma.image.AWTImage;
 import me.croma.image.Color;
@@ -48,11 +50,15 @@ public class PhotosColorsServiceImpl implements PhotosColorsService {
                 //file.delete();
                 for (Color c : list) {
                     PhotosColors colors = new PhotosColors();
+                    colors.setId(UUID.randomUUID().toString());
                     colors.setBlue(c.getBlue());
                     colors.setGreen(c.getGreen());
                     colors.setRed(c.getRed());
                     colors.setColor(c.toHexString());
                     colors.setPhotos_id(photos_id);
+                    
+                    colors.setCreate_date(new Date());
+                    colors.setModify_date(new Date());
                     photosColorsDAO.add(colors);
                 }
                 file.delete();

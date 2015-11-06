@@ -91,8 +91,9 @@ public class PhotosServiceImpl implements PhotosService {
 
                 //再删除之前先截取图片颜色
                 //sourceFile.delete();
+                String uuid = UUID.randomUUID().toString();
                 Photos photos = new Photos();
-                photos.setId(UUID.randomUUID().toString());
+                photos.setId(uuid);
 
                 photos.setTitle(wallpaperId);
                 photos.setWidth(easyImage.getWidth());
@@ -109,6 +110,7 @@ public class PhotosServiceImpl implements PhotosService {
                 photos.setThumbnail(thumbnailPath);
                 photos.setAlbum_id("ff8081814f7e13d8014f7e18a95a0000");
                 photos.setMember_id("1");
+                
 
                 photos.setWallhaven(wallpaperId);
                 photos.setStorage_host("http://123.57.240.11");
@@ -118,7 +120,7 @@ public class PhotosServiceImpl implements PhotosService {
                 getWallpaperTags(wallpaperId);
                 //2015-10-18添加 标签操作 结束
                 //生成颜色
-                photosColorsService.generateColors(sourceFile, wallpaperId);
+                photosColorsService.generateColors(sourceFile, uuid);
 
             } else {
                 logger.info("wallpapers id {} thumbnail or fullImage not exist.", wallpaperId);
@@ -132,7 +134,7 @@ public class PhotosServiceImpl implements PhotosService {
      * @throws Exception
      */
     private boolean download(String urlPath, String fileName) {
-        // System.out.println("urlPath: " + urlPath);
+        logger.info("urlPath: " + urlPath);
         Connection conn = Jsoup
                 .connect(urlPath)
                 .userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36");

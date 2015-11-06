@@ -18,6 +18,7 @@ public class crawlTask implements Runnable {
 
     public crawlTask(int page, PhotosService photosService) {
         this.page = page;
+        this.photosService = photosService;
     }
 
     @Override
@@ -31,6 +32,7 @@ public class crawlTask implements Runnable {
 
             photosService.process(doc);
         } catch (Exception ex) {
+            
             ex.printStackTrace();
         }
     }

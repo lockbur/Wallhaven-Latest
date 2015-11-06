@@ -17,6 +17,6 @@ public interface PhotosColorsDAO {
 
     @Insert("INSERT INTO biz.xx_photos_colors "
             + "(id,red,green,blue,color,photos_id,create_date,modify_date)"
-            + " VALUES (#{id},#{green},#{blue},#{color},#{photos_id},#{create_date},#{modify_date})")
+            + " VALUES (#{id},#{red},#{green},#{blue},#{color},#{photos_id},#{create_date},#{modify_date})")
     public int add(PhotosColors photosColors);
 }

@@ -63,7 +63,7 @@ public class BuildIndexSchedule {
         }
     }
 
-    @Scheduled(cron = "*/1 * * * * ?")
+//    @Scheduled(cron = "*/1 * * * * ?")
     public void build() {
         SolrInputDocument doc = new SolrInputDocument();
         String id = UUID.randomUUID().toString();

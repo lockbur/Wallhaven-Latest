@@ -24,17 +24,18 @@ public class StorageServiceImpl implements StorageService {
     
     @Override
     public String upload(File file) {
-        try {
-            FastdfsClient fastdfsClient = FastdfsClientFactory.getFastdfsClient("FastdfsClient.properties");
-            String fileId = fastdfsClient.upload(file);
-            
-            // return fileId;//
-            //logger.info("fastdfs upload file path : {}", fileId);
-            return fileId;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
+        return "test";
+//        try {
+//            FastdfsClient fastdfsClient = FastdfsClientFactory.getFastdfsClient("FastdfsClient.properties");
+//            String fileId = fastdfsClient.upload(file);
+//            
+//            // return fileId;//
+//            //logger.info("fastdfs upload file path : {}", fileId);
+//            return fileId;
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        return null;
     }
 
 }
