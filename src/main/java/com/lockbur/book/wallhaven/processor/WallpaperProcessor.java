@@ -1,8 +1,10 @@
 package com.lockbur.book.wallhaven.processor;
 
+import com.lockbur.book.wallhaven.enums.Category;
 import com.lockbur.book.wallhaven.enums.Purity;
 import com.lockbur.book.wallhaven.model.Tag;
 import com.lockbur.book.wallhaven.model.Wallpaper;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -50,7 +52,19 @@ public class WallpaperProcessor implements PageProcessor {
             Wallpaper wallpaper = new Wallpaper();
             //1 原图地址
 
-            //2 标签信息
+            //2 类别
+            List<Selectable> dl = page.getHtml().xpath("//div/[@data-storage-id='showcase-info']/dl/dd/text()").nodes();
+            if (dl.size() != 0) {
+                String categoryName = dl.get(1).get();
+                Category category = StringUtils.equalsIgnoreCase(categoryName, "GENERAL") ? Category.GENERAL
+                        : StringUtils.equalsIgnoreCase(categoryName, "ANIME") ? Category.ANIME
+                        : StringUtils.equalsIgnoreCase(categoryName, "PEOPLE") ? Category.PEOPLE
+                        : null;
+                logger.info("category {} ", category);
+                wallpaper.setCategory(category);
+            }
+
+            //3 标签信息
             List<Selectable> tagLiElements = page.getHtml().xpath("//ul[@id='tags']/li").nodes();
             List<Tag> tags = new ArrayList<>(tagLiElements.size());
             for (Selectable li : tagLiElements) {
